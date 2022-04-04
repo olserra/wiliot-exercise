@@ -11,7 +11,22 @@ import {
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-import './App.css';
+const Container = {
+  display: 'flex',
+  flexDirection: 'column',
+}
+
+const InnerContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '10px',
+  marginLeft: '200px',
+}
+
+const IDs = {
+  border: '1px solid grey',
+  padding: '0px 20px',
+}
 
 const App = () => {
 
@@ -29,7 +44,7 @@ const App = () => {
         // Checking if the connection is ok by checking if the first element is empty
         if (arr.length > 0) {
           // Checking if data if bigger then 100
-          if (arr[0].data > 100 || arr[1].data > 100) {
+          if (arr[0]?.data > 100 || arr[1]?.data > 100) {
             return null;
           } else {
             const newData = {
@@ -40,9 +55,9 @@ const App = () => {
             }
             setData((currentData) => {
               // Save data for 5 minutes then stop saving data
-              if (newData.timestamp >= (currentData[0].timestamp + 30000)) {
-                currentData.shift();
-                currentData.push(newData);
+              if (newData.timestamp >= (currentData[0]?.timestamp + 30000)) {
+                currentData?.shift();
+                currentData?.push(newData);
                 return currentData;
               } else {
                 return [...currentData, newData]
@@ -57,17 +72,20 @@ const App = () => {
     };
   }, []);
 
+  console.log(console.log(data))
+
   // Rendering the chart using the state
   return (
-    <div style="container">
-      <div>
-        <div>
+    <div style={Container}>
+      <h1>DATA</h1>
+      <div style={InnerContainer}>
+        <div style={IDs}>
           <p>ID 1</p>
-          <p>{data[0].temperature}</p>
+          <p>{data[1]?.id_1}</p>
         </div>
-        <div>
+        <div style={IDs}>
           <p>ID 2</p>
-          <p>{data[1].temperature}</p>
+          <p>{data[1]?.id_2}</p>
         </div>
       </div>
       <div>
@@ -80,7 +98,6 @@ const App = () => {
           <Line type="monotone" dataKey="id_2" stroke="#82ca9d" />
         </LineChart>
       </div>
-      <h1>DATA</h1>
     </div>
   );
 };
