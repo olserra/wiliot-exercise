@@ -1,7 +1,7 @@
 ## Run dev
 
-yarn start
+`yarn start`
 
 ## Run test
 
-yarn test
+`yarn test`
