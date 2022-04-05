@@ -14,6 +14,8 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 const Container = {
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
+  marginTop: '150px',
 }
 
 const InnerContainer = {
@@ -28,7 +30,7 @@ const IDs = {
   padding: '0px 20px',
 }
 
-const App = () => {
+const Client = () => {
 
   // Creating an empty state
   const [data, setData] = useState([{}]);
@@ -77,7 +79,6 @@ const App = () => {
   // Rendering the chart using the state
   return (
     <div style={Container}>
-      <h1>DATA</h1>
       <div style={InnerContainer}>
         <div style={IDs}>
           <p>ID 1</p>
@@ -102,4 +103,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Client;
