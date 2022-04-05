@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import Toast from '../Toast/Toast';
+
 import {
   Line,
   LineChart,
@@ -21,8 +23,8 @@ const Container = {
 const InnerContainer = {
   display: 'flex',
   flexDirection: 'row',
-  padding: '10px',
-  marginLeft: '200px',
+  padding: '5px',
+  alignItems: 'center',
 }
 
 const IDs = {
@@ -72,9 +74,19 @@ const Client = () => {
         alert('Connection failed')
       }
     };
-  }, []);
 
-  console.log(console.log(data))
+    ws.onerror = function () {
+      <Toast message={'Connection error'} />;
+    };
+
+    ws.onopen = function () {
+      <Toast message={'Connection open'} />;
+    };
+
+    ws.onclose = function () {
+      <Toast message={'Connection closed'} />;
+    };
+  }, []);
 
   // Rendering the chart using the state
   return (
@@ -82,19 +94,19 @@ const Client = () => {
       <div style={InnerContainer}>
         <div style={IDs}>
           <p>ID 1</p>
-          <p>{data[1]?.id_1}</p>
+          <p>{data[data.length - 1]?.id_1}</p>
         </div>
         <div style={IDs}>
           <p>ID 2</p>
-          <p>{data[1]?.id_2}</p>
+          <p>{data[data.length - 1].id_2}</p>
         </div>
       </div>
       <div>
-        <LineChart width={500} height={300} data={data}>
+        <LineChart width={500} height={300} data={data.slice(data.length - 6, data.length)}>
           <XAxis dataKey="name" />
           <YAxis />
           <Legend />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
           <Line type="monotone" dataKey="id_1" stroke="#8884d8" />
           <Line type="monotone" dataKey="id_2" stroke="#82ca9d" />
         </LineChart>
