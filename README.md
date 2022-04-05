@@ -1,4 +1,4 @@
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+Clone down this repository. You will need `node` and `yarn` installed globally on your machine.  
 
 Installation:
 
